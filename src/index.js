@@ -1,23 +1,24 @@
-let input = "  Test  ";
+import {compose, pipe} from "lodash/fp";
 
-const trim = str => {
-    return str.trim()
+let input = " TesT";
+const trim = data => {
+    return data.trim();
 };
 
-const wrap = (type, str) => {
-    return `<${type}>${str}</>`;
+// const wrap = (type, data) => {
+//     return `<${type}>${data}</${type}>`;
+// };
+
+const wrap = type => data => {
+    return `<${type}>${data}</${type}>`;
 };
 
-const wrapInDiv = str => {
-    return `<div>${str}</div>`;
+
+const toLoCase = (data) => {
+    return data.toLowerCase();
 };
+/*const transform = pipe(trim, toLoCase, wrap("img"));
+console.log(transform(input));*/
 
-const toLowercase = str => {
-    return str.toLowerCase();
-};
-
-const result = wrapInDiv(toLowercase(trim(input)));
-
-console.log(result);
-
-
+const transform = pipe(trim, toLoCase, wrap("img"))(input);
+console.log(transform);
