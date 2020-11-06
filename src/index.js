@@ -1,24 +1,13 @@
-import {compose, pipe} from "lodash/fp";
+import store from "./store";
+import {BUG_ADDED, BUG_REMOVED} from "./acctionType";
+import {addBug, bugResolved} from "./acctionCreator";
 
-let input = " TesT";
-const trim = data => {
-    return data.trim();
-};
+let unsubscribe = store.subscribe(() => {
+    console.log("store changed ", store.getState())
+});
+store.dispatch(addBug("b1"));
+store.dispatch(addBug("b2"));
+store.dispatch(addBug("b3"));
+store.dispatch(bugResolved(2));
 
-// const wrap = (type, data) => {
-//     return `<${type}>${data}</${type}>`;
-// };
-
-const wrap = type => data => {
-    return `<${type}>${data}</${type}>`;
-};
-
-
-const toLoCase = (data) => {
-    return data.toLowerCase();
-};
-/*const transform = pipe(trim, toLoCase, wrap("img"));
-console.log(transform(input));*/
-
-const transform = pipe(trim, toLoCase, wrap("img"))(input);
-console.log(transform);
+console.log(store.getState());
