@@ -7,7 +7,7 @@ let lastId = 0;
 export default function reducer(state = [], action) {
     switch (action.type) {
         case BUG_ADDED:
-            return [...state,
+            return [ ...state,
                 {
                     id: ++lastId,
                     dec: action.payload.dec
